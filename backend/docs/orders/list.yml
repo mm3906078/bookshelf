@@ -1,0 +1,21 @@
+tags:
+  - name: Order
+post:
+  description: List User Orders
+responses:
+    '200':
+      description: Successful response
+      schema:
+        example:
+          {
+            "order_id": "2950b09c-f73b-4ecf-8c26-5938fd6fd63e",
+            "book_id": "2950b09c-f73b-4ecf-8c26-5938fd6fd63e",
+            "user_id": "2950b09c-f73b-4ecf-8c26-5938fd6fd63e",
+            "order_date": "2021-01-01"
+          }
+    '400':
+      description: Token is required!
+    '401':
+      description: Invalid token!
+security:
+  - Bearer: []

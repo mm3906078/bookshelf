@@ -1,0 +1,22 @@
+tags:
+  - name: Book
+post:
+  description: List all books
+responses:
+    '200':
+      description: Successful response
+      schema:
+        example:
+          [
+            {
+              "book_id": "2950b09c-f73b-4ecf-8c26-5938fd6fd63e",
+              "title": "The Lord of the Rings",
+              "author": "J. R. R. Tolkien",
+              "year": "1954",
+              "genre": "Fantasy"
+            }
+          ]
+    '400':
+      description: Bad Request
+    '404':
+      description: Not Found

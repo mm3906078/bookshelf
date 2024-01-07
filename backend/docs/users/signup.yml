@@ -1,0 +1,57 @@
+tags:
+  - name: Users
+post:
+  description: create a new user
+parameters:
+  - name: user
+    in: body
+    required: true
+    schema:
+      $ref: '#/definitions/User'
+    description: user name
+responses:
+    '200':
+      description: Successful response
+      schema:
+        example:
+          {
+            "id": "2950b09c-f73b-4ecf-8c26-5938fd6fd63e",
+            "firstName": "John",
+            "lastName": "Doe",
+            "address": "1234 Main St",
+            "email": "admin@admin.com",
+            "role": "admin"
+          }
+    '400':
+      description: Email and password are required!
+    '409':
+      description: Email already exists!
+      schema:
+        example: 2950b09c-f73b-4ecf-8c26-5938fd6fd63e
+definitions:
+  User:
+    type: object
+    required:
+      - email
+      - password
+    properties:
+      firstName:
+        type: string
+        example: John
+      lastName:
+        type: string
+        example: Doe
+      address:
+        type: string
+        example: 1234 Main St
+      email:
+        type: string
+        example: admin@admin.com
+      password:
+        type: string
+        example: password
+      role:
+        type: string
+        enum:
+          - admin
+          - user

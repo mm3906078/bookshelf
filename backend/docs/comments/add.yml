@@ -1,0 +1,31 @@
+tags:
+  - name: Comments
+post:
+  description: Add a comment
+parameters:
+  - name: book_id
+    in: path
+    schema:
+      example: 2950b09c-f73b-4ecf-8c26-5938fd6fd63e
+  - name: comment
+    in: body
+    schema:
+      example:
+        {
+          "comment": "This is a comment"
+        }
+responses:
+    '200':
+      description: Successful response
+      schema:
+        example: 2950b09c-f73b-4ecf-8c26-5938fd6fd63e
+    '400':
+      description: Token is required!
+    '401':
+      description: Invalid token!
+    '409':
+      description: Comment already exists!
+    '404':
+      description: Book not found!
+security:
+  - Bearer: []

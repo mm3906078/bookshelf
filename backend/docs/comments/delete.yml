@@ -1,0 +1,22 @@
+tags:
+  - name: Comments
+post:
+  description: Delete a comment
+parameters:
+  - name: book_id
+    in: path
+    schema:
+      example: 2950b09c-f73b-4ecf-8c26-5938fd6fd63e
+responses:
+    '200':
+      description: Book ID
+      schema:
+        example: 2950b09c-f73b-4ecf-8c26-5938fd6fd63e
+    '400':
+      description: Token is required!
+    '404':
+      description: Comment not found!
+    '401':
+      description: Invalid token
+security:
+  - Bearer: []

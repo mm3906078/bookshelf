@@ -1,0 +1,21 @@
+version: '3.9'
+
+services:
+  postgres:
+    image: postgres:14-alpine
+    # For local development, we expose the PostgreSQL port to the host
+    # ports:
+    #   - 127.0.0.1:5432:5432
+    volumes:
+      - /opt/bookshelf/postgresql:/var/lib/postgresql/data
+    env_file:
+      - .env
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    # For local development, we expose the backend port to the host
+    ports:
+      - 127.0.0.1:5000:5000
+    env_file:
+      - .env

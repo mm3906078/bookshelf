@@ -1,0 +1,28 @@
+tags:
+  - name: Book
+post:
+  description: Order a book
+parameters:
+  - name: book_id
+    in: path
+    schema:
+      example:
+        {
+          "book_id": "2950b09c-f73b-4ecf-8c26-5938fd6fd63e",
+          "order_id": "2950b09c-f73b-4ecf-8c26-5938fd6fd63e,
+          "user_id": "2950b09c-f73b-4ecf-8c26-5938fd6fd63e",
+          "order_date": "2021-01-01T00:00:00.000Z"
+        }
+responses:
+    '200':
+      description: Order ID
+      schema:
+        example: 2950b09c-f73b-4ecf-8c26-5938fd6fd63e
+    '400':
+      description: Bad Request
+    '403':
+      description: Forbidden
+    '401':
+      description: Invalid token
+security:
+  - Bearer: []

@@ -1,0 +1,39 @@
+tags:
+  - name: Users
+post:
+  description: create a new user
+parameters:
+  - name: user
+    in: body
+    required: true
+    schema:
+      $ref: '#/definitions/User-Login'
+    description: user name
+responses:
+    '200':
+      description: Successful response
+      schema:
+        example:
+          {
+            "user_id": "2950b09c-f73b-4ecf-8c26-5938fd6fd63e",
+            "token": "eyJ1c2VyX2lkIjogIjI5NTBiMDljLWY3M2ItNGVjZi"
+          }
+    '400':
+      description: Email and password are required!
+    '401':
+      description: Wrong password!
+    '404':
+      description: User not found!
+definitions:
+  User-Login:
+    type: object
+    required:
+      - email
+      - password
+    properties:
+      email:
+        type: string
+        example: admin@admin.com
+      password:
+        type: string
+        example: password

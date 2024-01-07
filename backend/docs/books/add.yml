@@ -1,0 +1,51 @@
+tags:
+  - name: Book
+post:
+  description: Add a new book
+parameters:
+  - name: book
+    in: body
+    schema:
+      $ref: '#/definitions/Book-Add'
+    description: Book Data
+responses:
+    '200':
+      description: Successful response
+      schema:
+        example:
+          {
+            "book_id": "2950b09c-f73b-4ecf-8c26-5938fd6fd63e",
+            "title": "The Lord of the Rings",
+            "author": "J. R. R. Tolkien",
+            "year": "1954",
+            "genre": "Fantasy"
+          }
+    '400':
+      description: Bad Request
+    '403':
+      description: Forbidden
+    '401':
+      description: Invalid token
+security:
+  - Bearer: []
+definitions:
+  Book-Add:
+    type: object
+    required:
+      - title
+      - author
+      - year
+      - genre
+    properties:
+      title:
+        type: string
+        example: The Lord of the Rings
+      author:
+        type: string
+        example: J. R. R. Tolkien
+      year:
+        type: string
+        example: 1954
+      genre:
+        type: string
+        example: Fantasy

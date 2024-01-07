@@ -1,0 +1,23 @@
+tags:
+  - name: Book
+post:
+  description: Delete a book
+parameters:
+  - name: book_id
+    in: path
+    schema:
+      example: 2950b09c-f73b-4ecf-8c26-5938fd6fd63e
+    description: Book ID
+responses:
+    '200':
+      description: Successful response
+      schema:
+        example: 2950b09c-f73b-4ecf-8c26-5938fd6fd63e
+    '400':
+      description: Bad Request
+    '403':
+      description: Forbidden
+    '401':
+      description: Invalid token
+security:
+  - Bearer: []
