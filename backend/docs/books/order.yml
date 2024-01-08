@@ -9,7 +9,7 @@ parameters:
       example:
         {
           "book_id": "2950b09c-f73b-4ecf-8c26-5938fd6fd63e",
-          "order_id": "2950b09c-f73b-4ecf-8c26-5938fd6fd63e,
+          "order_id": "2950b09c-f73b-4ecf-8c26-5938fd6fd63e",
           "user_id": "2950b09c-f73b-4ecf-8c26-5938fd6fd63e",
           "order_date": "2021-01-01T00:00:00.000Z"
         }
