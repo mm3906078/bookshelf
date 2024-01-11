@@ -7,9 +7,11 @@ services:
     # ports:
     #   - 127.0.0.1:5432:5432
     volumes:
-      - /opt/bookshelf/postgresql:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql/data/
     env_file:
       - .env
+    networks:
+      - bookshelf
   backend:
     build:
       context: ./backend
@@ -19,3 +21,13 @@ services:
       - 127.0.0.1:5000:5000
     env_file:
       - .env
+    depends_on:
+      - postgres
+    networks:
+      - bookshelf
+
+volumes:
+  postgres_data:
+
+networks:
+  bookshelf:

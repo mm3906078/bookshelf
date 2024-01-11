@@ -32,7 +32,12 @@ POSTGRES_PORT=5432
 POSTGRES_HOST=127.0.0.1
 TOKEN_SECRET=fake-secret
 ```
-if you using docker, you need to change `POSTGRES_HOST` to postgres.
+if you using docker, you need to change `POSTGRES_HOST` value to from `127.0.0.1` to postgres``.
 
 ## Usage
 You can acsess the application swagger by following link: http://localhost:5000/apidocs/.
+
+## Development
+```
+docker compose up -d --force-recreate --no-deps --build
+```

@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 from flask import Flask, request
+from flask_cors import CORS, cross_origin
 import json, random
 import uuid
 import logging
@@ -9,13 +10,9 @@ import tokenlib
 import os
 from flasgger import Swagger, LazyJSONEncoder
 from flasgger import swag_from
-from dotenv import load_dotenv
-
-dotenv_path = os.path.join(os.getcwd(), '../.env')
-if os.path.exists(dotenv_path):
-    load_dotenv(dotenv_path)
 
 app = Flask(__name__)
+CORS(app)
 
 app.json_encoder = LazyJSONEncoder
 
@@ -94,7 +91,7 @@ def create_user_table():
     connection, cursor = db_connect()
     try:
         cursor.execute(
-            "CREATE TABLE IF NOT EXISTS users (uuid varchar PRIMARY KEY, email varchar, password varchar, role varchar, name varchar, family varchar, address varchar)"
+            "CREATE TABLE IF NOT EXISTS users (uuid varchar PRIMARY KEY, email varchar, password varchar, role varchar, name varchar, family varchar, address varchar);"
         )
         logging.info("Table users created successfully!")
         connection.commit()
@@ -109,7 +106,7 @@ def create_books_table():
     connection, cursor = db_connect()
     try:
         cursor.execute(
-            "CREATE TABLE IF NOT EXISTS books (book_id varchar PRIMARY KEY, title varchar, author varchar, year varchar, genre varchar)"
+            "CREATE TABLE IF NOT EXISTS books (book_id varchar PRIMARY KEY, title varchar, author varchar, year varchar, genre varchar);"
         )
         logging.info("Table books created successfully!")
         connection.commit()
@@ -124,7 +121,7 @@ def order_book_table():
     connection, cursor = db_connect()
     try:
         cursor.execute(
-            "CREATE TABLE IF NOT EXISTS orders (order_id varchar PRIMARY KEY, book_id varchar, user_id varchar, order_date varchar)"
+            "CREATE TABLE IF NOT EXISTS orders (order_id varchar PRIMARY KEY, book_id varchar, user_id varchar, order_date varchar);"
         )
         logging.info("Table orders created successfully!")
         connection.commit()
@@ -139,7 +136,7 @@ def create_comments_table():
     connection, cursor = db_connect()
     try:
         cursor.execute(
-            "CREATE TABLE IF NOT EXISTS comments (book_id varchar, user_id varchar, comment varchar)"
+            "CREATE TABLE IF NOT EXISTS comments (book_id varchar, user_id varchar, comment varchar);"
         )
         logging.info("Table comments created successfully!")
         connection.commit()
@@ -151,15 +148,14 @@ def create_comments_table():
         return False
 
 def db_init():
-    # Create user table
     if create_user_table():
-        # Create books table
-        if create_books_table():
-            # Create orders table
-            if order_book_table():
-                # Create comments table
-                if create_comments_table():
-                    return True
+        logging.info("Table users created successfully!")
+    if create_books_table():
+        logging.info("Table books created successfully!")
+    if order_book_table():
+        logging.info("Table orders created successfully!")
+    if create_comments_table():
+        logging.info("Table comments created successfully!")
 
 @swag_from("docs/users/signup.yml")
 @app.route('/users/signup', methods=['POST'])
@@ -169,12 +165,12 @@ def signup():
     if not ('email' in request_data and 'password' in request_data):
         return "Email and password are required!",400
     # Get name, family, email, password, address from request
-    if 'name' in request_data:
-        name = request_data['name']
+    if 'firstName' in request_data:
+        name = request_data['firstName']
     else:
         name = None
-    if 'family' in request_data:
-        family = request_data['family']
+    if 'lastName' in request_data:
+        family = request_data['lastName']
     else:
         family = None
     email = request_data['email']
@@ -728,5 +724,5 @@ def admin_delete_comment():
     return book_id,200
 
 if __name__ =='__main__':
-    if db_init():
-        app.run(debug=True)
+    db_init()
+    app.run(debug=True)
