@@ -16,7 +16,7 @@ services:
       dockerfile: Dockerfile
     # For local development, we expose the backend port to the host
     ports:
-      - 5000:5000
+      - 127.0.0.1:5000:5000
     env_file:
       - .env
     depends_on:

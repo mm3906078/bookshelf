@@ -820,4 +820,4 @@ def admin_delete_comment():
 
 if __name__ == '__main__':
     if db_init():
-        app.run(debug=True)
+        app.run(debug=True, host='0.0.0.0')
