@@ -1,19 +1,19 @@
-import { SubmitHandler, useForm } from "react-hook-form";
 import {
+  Box,
+  Button,
+  FormControl,
   FormErrorMessage,
   FormLabel,
-  FormControl,
   Input,
-  Button,
   Link,
-  Box,
-  Text,
   Select,
+  Text,
   useToast,
 } from "@chakra-ui/react";
-import { Link as ReactRouterLink } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { Link as ReactRouterLink } from "react-router-dom";
 
 type SignupValues = {
   firstName: string;
