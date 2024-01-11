@@ -10,24 +10,17 @@ services:
       - postgres_data:/var/lib/postgresql/data/
     env_file:
       - .env
-    networks:
-      - bookshelf
   backend:
     build:
       context: ./backend
       dockerfile: Dockerfile
     # For local development, we expose the backend port to the host
     ports:
-      - 127.0.0.1:5000:5000
+      - 5000:5000
     env_file:
       - .env
     depends_on:
       - postgres
-    networks:
-      - bookshelf
 
 volumes:
   postgres_data:
-
-networks:
-  bookshelf:
