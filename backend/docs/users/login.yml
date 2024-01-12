@@ -16,7 +16,8 @@ responses:
         example:
           {
             "user_id": "2950b09c-f73b-4ecf-8c26-5938fd6fd63e",
-            "token": "eyJ1c2VyX2lkIjogIjI5NTBiMDljLWY3M2ItNGVjZi"
+            "token": "eyJ1c2VyX2lkIjogIjI5NTBiMDljLWY3M2ItNGVjZi",
+            "role": "admin"
           }
     '400':
       description: Email and password are required!

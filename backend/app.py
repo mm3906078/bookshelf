@@ -265,11 +265,15 @@ def login():
             cursor.execute("SELECT uuid FROM users WHERE email = %s",
                            (email, ))
             user_id = cursor.fetchone()[0]
+            # Get role from database
+            cursor.execute("SELECT role FROM users WHERE email = %s",
+                            (email, ))
+            role = cursor.fetchone()[0]
             db_disconnect(cursor, connection)
             # Generate token
             token = tokenlib.make_token({'user_id': user_id},
                                         secret=TOKEN_SECRET)
-            return {"token": token, "user_id": user_id}, 200
+            return {"token": token, "user_id": user_id, "role": role}, 200
         else:
             db_disconnect(cursor, connection)
             return "Wrong password!", 401
