@@ -18,7 +18,8 @@ responses:
             "title": "The Lord of the Rings",
             "author": "J. R. R. Tolkien",
             "year": "1954",
-            "genre": "Fantasy"
+            "genre": "Fantasy",
+            "price": "10.00"
           }
     '400':
       description: Bad Request
@@ -49,3 +50,6 @@ definitions:
       genre:
         type: string
         example: Fantasy
+      price:
+        type: string
+        example: 10.00

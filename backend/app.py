@@ -120,7 +120,7 @@ def create_books_table():
     connection, cursor = db_connect()
     try:
         cursor.execute(
-            "CREATE TABLE IF NOT EXISTS books (book_id varchar PRIMARY KEY, title varchar, author varchar, year varchar, genre varchar);"
+            "CREATE TABLE IF NOT EXISTS books (book_id varchar PRIMARY KEY, title varchar, author varchar, year varchar, genre varchar, price varchar);"
         )
         logging.info("Table books created successfully!")
         connection.commit()
@@ -392,7 +392,7 @@ def add_book():
     request_data = request.get_json()
     # Check if title, author, year and genre are provided
     if not ('title' in request_data and 'author' in request_data
-            and 'year' in request_data and 'genre' in request_data):
+            and 'year' in request_data and 'genre' in request_data and 'price' in request_data ):
         return "Title, author, year and genre are required!", 400
     # Check if token is provided in request header
     if not 'Authorization' in request.headers:
@@ -403,6 +403,7 @@ def add_book():
     year = request_data['year']
     genre = request_data['genre']
     token = request.headers['Authorization']
+    price = request_data['price']
 
     # Check if token is valid and user is admin
     try:
@@ -424,8 +425,8 @@ def add_book():
     connection, cursor = db_connect()
 
     # Insert book to database
-    cursor.execute("INSERT INTO books VALUES (%s, %s, %s, %s, %s)",
-                   (book_id, title, author, year, genre))
+    cursor.execute("INSERT INTO books VALUES (%s, %s, %s, %s, %s, %s)",
+                   (book_id, title, author, year, genre, price))
     connection.commit()
     db_disconnect(cursor, connection)
     result = {
@@ -449,6 +450,8 @@ def delete_book(book_id):
     # Check if token is valid and user is admin
     try:
         data = tokenlib.parse_token(token, secret=TOKEN_SECRET)
+        logging.debug("Time in timestamp: %s", datetime.datetime.now().timestamp())
+        logging.debug(data)
         user_id = data['user_id']
         connection, cursor = db_connect()
         cursor.execute("SELECT role FROM users WHERE uuid = %s", (user_id, ))
@@ -481,6 +484,8 @@ def order_book(book_id):
     # Check if token is valid and user is admin
     try:
         data = tokenlib.parse_token(token, secret=TOKEN_SECRET)
+        logging.debug("Time in timestamp: %s", datetime.datetime.now().timestamp())
+        logging.debug(data)
         user_id = data['user_id']
     except:
         return "Invalid token!", 401
@@ -519,6 +524,8 @@ def list_all_orders():
     # Check if token is valid and user is admin
     try:
         data = tokenlib.parse_token(token, secret=TOKEN_SECRET)
+        logging.debug("Time in timestamp: %s", datetime.datetime.now().timestamp())
+        logging.debug(data)
         user_id = data['user_id']
         connection, cursor = db_connect()
         cursor.execute("SELECT role FROM users WHERE uuid = %s", (user_id, ))
@@ -535,15 +542,30 @@ def list_all_orders():
     # Get all orders from database
     cursor.execute("SELECT * FROM orders")
     orders = cursor.fetchall()
-    db_disconnect(cursor, connection)
+
     result = []
     for order in orders:
+        # Get user name and family from database
+        cursor.execute("SELECT name FROM users WHERE uuid = %s",
+                       (order[2], ))
+        name = cursor.fetchone()[0]
+        cursor.execute("SELECT family FROM users WHERE uuid = %s",
+                          (order[2], ))
+        family = cursor.fetchone()[0]
+        # Get book name from database
+        cursor.execute("SELECT title FROM books WHERE book_id = %s",
+                       (order[1], ))
+        book = cursor.fetchone()[0]
         result.append({
             "order_id": order[0],
+            "book_title": book,
             "book_id": order[1],
             "user_id": order[2],
-            "order_date": order[3]
+            "order_date": order[3],
+            "firstName": name,
+            "lastName": family
         })
+    db_disconnect(cursor, connection)
     return result, 200
 
 
@@ -558,6 +580,8 @@ def list_my_orders():
     # Check if token is valid and user is admin
     try:
         data = tokenlib.parse_token(token, secret=TOKEN_SECRET)
+        logging.debug("Time in timestamp: %s", datetime.datetime.now().timestamp())
+        logging.debug(data)
         user_id = data['user_id']
     except:
         return "Invalid token!", 401
@@ -591,6 +615,8 @@ def delete_order(order_id):
     # Check if token is valid and user is admin
     try:
         data = tokenlib.parse_token(token, secret=TOKEN_SECRET)
+        logging.debug("Time in timestamp: %s", datetime.datetime.now().timestamp())
+        logging.debug(data)
         user_id = data['user_id']
     except:
         return "Invalid token!", 401
@@ -630,6 +656,8 @@ def add_comment(book_id):
     # Check if token is valid and user is admin
     try:
         data = tokenlib.parse_token(token, secret=TOKEN_SECRET)
+        logging.debug("Time in timestamp: %s", datetime.datetime.now().timestamp())
+        logging.debug(data)
         user_id = data['user_id']
     except:
         return "Invalid token!", 401
@@ -693,6 +721,8 @@ def delete_comment(book_id):
     # Check if token is valid and user is admin
     try:
         data = tokenlib.parse_token(token, secret=TOKEN_SECRET)
+        logging.debug("Time in timestamp: %s", datetime.datetime.now().timestamp())
+        logging.debug(data)
         user_id = data['user_id']
     except:
         return "Invalid token!", 401
@@ -732,6 +762,8 @@ def update_comment(book_id):
     # Check if token is valid and user is admin
     try:
         data = tokenlib.parse_token(token, secret=TOKEN_SECRET)
+        logging.debug("Time in timestamp: %s", datetime.datetime.now().timestamp())
+        logging.debug(data)
         user_id = data['user_id']
     except:
         return "Invalid token!", 401
@@ -784,6 +816,8 @@ def admin_delete_comment():
     # Check if token is valid and user is admin
     try:
         data = tokenlib.parse_token(token, secret=TOKEN_SECRET)
+        logging.debug("Time in timestamp: %s", datetime.datetime.now().timestamp())
+        logging.debug(data)
         admin_id = data['user_id']
         connection, cursor = db_connect()
         cursor.execute("SELECT role FROM users WHERE uuid = %s", (admin_id, ))
