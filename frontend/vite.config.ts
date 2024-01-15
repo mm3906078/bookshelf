@@ -8,6 +8,8 @@ export default defineConfig({
     open: true,
     proxy: {
       "/users": "http://localhost:5000",
+      "/books": "http://localhost:5000",
+      "/orders": "http://localhost:5000",
     },
   },
 });
