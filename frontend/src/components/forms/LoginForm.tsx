@@ -6,12 +6,17 @@ import {
   FormLabel,
   Input,
   Link,
-  Text
+  Text,
+  useToast,
 } from "@chakra-ui/react";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { Link as ReactRouterLink, useNavigate } from "react-router-dom";
+import {
+  Navigate,
+  Link as ReactRouterLink,
+  useNavigate,
+} from "react-router-dom";
 
 type LoginValues = {
   email: string;
@@ -19,12 +24,17 @@ type LoginValues = {
 };
 
 const LoginForm = () => {
+  const navigate = useNavigate();
+  if (localStorage.getItem("token")) {
+    return <Navigate to="/" />;
+  }
+
+  const toast = useToast();
   const {
     handleSubmit,
     register,
     formState: { errors },
   } = useForm<LoginValues>();
-  const navigate = useNavigate();
 
   const mutation = useMutation({
     mutationFn: (values: LoginValues) => {
@@ -33,8 +43,23 @@ const LoginForm = () => {
     onSuccess: (res) => {
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("user_id", res.data.user_id);
-      // localStorage.setItem("role", res.data.role);
+      localStorage.setItem("role", res.data.role);
       navigate("/");
+      toast({
+        title: "Welcome!",
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+      });
+    },
+    onError: (error: any) => {
+      toast({
+        title: "Error!",
+        description: `${error.response.data}`,
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
     },
   });
 
@@ -78,6 +103,7 @@ const LoginForm = () => {
           <FormControl mt="10px" isInvalid={!!errors.password}>
             <FormLabel htmlFor="password">password</FormLabel>
             <Input
+              type="password"
               id="password"
               placeholder="password"
               {...register("password", {
