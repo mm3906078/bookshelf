@@ -13,3 +13,17 @@ export interface Order {
   order_id: string;
   user_id: string;
 }
+// export interface Comment {
+//   book_id: string;
+//   order_date: any;
+//   order_id: string;
+//   user_id: string;
+// }
+export interface User {
+  address: string;
+  email: any;
+  name: string;
+  family: string;
+  role: string;
+  user_id: string;
+}
