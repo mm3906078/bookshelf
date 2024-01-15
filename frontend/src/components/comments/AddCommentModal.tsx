@@ -1,14 +1,14 @@
 import {
-    Button,
-    Modal,
-    ModalBody,
-    ModalCloseButton,
-    ModalContent,
-    ModalFooter,
-    ModalHeader,
-    ModalOverlay,
-    Textarea,
-    useToast
+  Button,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+  Textarea,
+  useToast,
 } from "@chakra-ui/react";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
@@ -17,7 +17,7 @@ import { useState } from "react";
 interface Props {
   isOpen: boolean;
   onClose: () => void;
-  bookId: string;
+  bookId?: string;
 }
 
 const AddCommentModal = (props: Props) => {
@@ -27,9 +27,13 @@ const AddCommentModal = (props: Props) => {
 
   const mutation = useMutation({
     mutationFn: () => {
-      return axios.post(`/comments/add/${props.bookId}`, commentText, {
-        headers: { Authorization: token },
-      });
+      return axios.post(
+        `/comments/add/${props.bookId}`,
+        { comment: commentText },
+        {
+          headers: { Authorization: token },
+        }
+      );
     },
     onSuccess: () => {
       toast({
