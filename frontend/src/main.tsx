@@ -13,6 +13,8 @@ import SignUpForm from "./components/forms/SignUpForm.tsx";
 import Layout from "./components/layout/Layout.tsx";
 import Store from "./components/store";
 import OrdersPage from "./components/orders/index.tsx";
+import CommentsPage from "./components/comments/CommentsPage.tsx";
+import UsersPage from "./components/users/UsersPage.tsx";
 
 const queryClient = new QueryClient();
 
@@ -33,6 +35,14 @@ const router = createBrowserRouter([
       {
         path: "orders",
         element: <OrdersPage />,
+      },
+      {
+        path: "users",
+        element: <UsersPage />,
+      },
+      {
+        path: "comments/:bookid",
+        element: <CommentsPage />,
       },
     ],
   },
