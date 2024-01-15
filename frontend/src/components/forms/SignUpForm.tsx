@@ -39,8 +39,8 @@ const SignUpForm = () => {
     },
     onSuccess: (res) => {
       toast({
-        title: "User created.",
-        description: `user created with id of ${res.data.user_id}`,
+        title: "Signed Up Successfully!",
+        description: `${res.data.role} created with id of ${res.data.user_id}`,
         status: "success",
         duration: 5000,
         isClosable: true,
@@ -137,6 +137,7 @@ const SignUpForm = () => {
               <FormControl mt="10px" isInvalid={!!errors.password}>
                 <FormLabel htmlFor="password">password</FormLabel>
                 <Input
+                  type="password"
                   id="password"
                   placeholder="password"
                   {...register("password", {
