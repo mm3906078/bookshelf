@@ -84,7 +84,6 @@ const BooksTable = (props: Props) => {
         overflowX="hidden"
         borderRadius="10px"
         bg="aliceblue"
-        maxWidth="80%"
         maxHeight="500px"
         mx="auto"
       >
