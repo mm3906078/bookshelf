@@ -10,6 +10,7 @@ export default defineConfig({
       "/users": "http://localhost:5000",
       "/books": "http://localhost:5000",
       "/orders": "http://localhost:5000",
+      "/comments": "http://localhost:5000",
     },
   },
 });
