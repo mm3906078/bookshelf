@@ -1,17 +1,15 @@
 import {
-    Button,
-    Table,
-    TableContainer,
-    Tbody,
-    Td,
-    Th,
-    Thead,
-    Tr,
-    useDisclosure
+  Link,
+  Table,
+  TableContainer,
+  Tbody,
+  Td,
+  Th,
+  Thead,
+  Tr
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { Link as ReactRouterLink } from "react-router-dom";
 import { Order } from "../../models/models";
-import AddCommentModal from "../comments/AddCommentModal";
 
 interface Props {
   orders: Order[];
@@ -19,13 +17,7 @@ interface Props {
 
 const OrdersTable = (props: Props) => {
   const role = localStorage.getItem("role");
-  const {
-    isOpen: isCommentModalOpen,
-    onOpen: onOpenCommentModal,
-    onClose: onCloseCommentModal,
-  } = useDisclosure();
 
-  const [selectedOrderBookId, setSelectedOrderBookId] = useState("");
   return (
     <>
       <TableContainer
@@ -52,15 +44,13 @@ const OrdersTable = (props: Props) => {
                 <Td>{order.order_date}</Td>
                 {role === "user" && (
                   <Td>
-                    <Button
+                    <Link
+                      as={ReactRouterLink}
                       colorScheme="blue"
-                      onClick={() => {
-                        setSelectedOrderBookId(order.book_id);
-                        onOpenCommentModal();
-                      }}
+                      to={`/comments/${order.book_id}`}
                     >
-                      Comment
-                    </Button>
+                      Comments
+                    </Link>
                   </Td>
                 )}
               </Tr>
@@ -68,13 +58,6 @@ const OrdersTable = (props: Props) => {
           </Tbody>
         </Table>
       </TableContainer>
-      {isCommentModalOpen && (
-        <AddCommentModal
-          isOpen={isCommentModalOpen}
-          onClose={onCloseCommentModal}
-          bookId={selectedOrderBookId}
-        />
-      )}
     </>
   );
 };
