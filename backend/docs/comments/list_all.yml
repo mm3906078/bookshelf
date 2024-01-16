@@ -1,7 +1,7 @@
 tags:
   - name: Comments
 get:
-  description: List of comments
+  description: List of all comments
 parameters:
   - name: book_id
     in: path
@@ -19,3 +19,5 @@ responses:
             "user_id": "2950b09c-f73b-4ecf-8c26-5938fd6fd63e",
             "comment": "The Lord of the Rings"
           }
+security:
+  - Bearer: []
