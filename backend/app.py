@@ -790,13 +790,10 @@ def update_comment(book_id):
     cursor.execute(
         "SELECT * FROM comments WHERE book_id = %s AND user_id = %s",
         (book_id, user_id))
-    comment = cursor.fetchone()
-    if not comment:
+    old_comment = cursor.fetchone()
+    if not old_comment:
         db_disconnect(cursor, connection)
         return "Comment not found!", 404
-
-    # Connect to database
-    connection, cursor = db_connect()
 
     # Update comment in database
     cursor.execute(
