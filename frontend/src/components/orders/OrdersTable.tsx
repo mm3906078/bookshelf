@@ -6,7 +6,7 @@ import {
   Td,
   Th,
   Thead,
-  Tr
+  Tr,
 } from "@chakra-ui/react";
 import { Link as ReactRouterLink } from "react-router-dom";
 import { Order } from "../../models/models";
@@ -46,7 +46,10 @@ const OrdersTable = (props: Props) => {
                   <Td>
                     <Link
                       as={ReactRouterLink}
-                      colorScheme="blue"
+                      borderRadius="5px"
+                      padding="10px 20px"
+                      bg="green"
+                      color="white"
                       to={`/comments/${order.book_id}`}
                     >
                       Comments
