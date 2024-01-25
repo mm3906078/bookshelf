@@ -47,6 +47,18 @@ const Header = () => {
               Users
             </Link>
           )}
+          {role === "admin" && (
+            <Link
+              borderRadius="5px"
+              padding="10px 20px"
+              bg="gray.100"
+              color="green"
+              as={ReactRouterLink}
+              to="/allcomments"
+            >
+              Comments
+            </Link>
+          )}
           <Link
             borderRadius="5px"
             padding="10px 20px"
