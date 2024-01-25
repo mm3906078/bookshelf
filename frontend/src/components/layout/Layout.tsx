@@ -1,7 +1,7 @@
-import { Box, useToast } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 import { Navigate, Outlet } from "react-router-dom";
-import Header from "../layout/Header";
 import MainBg from "../../assets/images/bg.jpg";
+import Header from "../layout/Header";
 
 const Layout = () => {
   const token = localStorage.getItem("token");

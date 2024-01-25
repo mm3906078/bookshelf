@@ -1,19 +1,13 @@
 import {
-  Button,
   Table,
   TableContainer,
   Tbody,
   Td,
   Th,
   Thead,
-  Tr,
-  useDisclosure,
+  Tr
 } from "@chakra-ui/react";
-import { useState } from "react";
-import { Order, User } from "../../models/models";
-import AddCommentModal from "../comments/AddCommentModal";
-import { Link } from "@chakra-ui/react";
-import { Link as ReactRouterLink } from "react-router-dom";
+import { User } from "../../models/models";
 
 interface Props {
   users: User[];

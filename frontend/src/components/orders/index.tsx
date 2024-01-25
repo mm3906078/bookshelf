@@ -15,6 +15,7 @@ const OrdersPage = () => {
       return data;
     },
   });
+  console.log(data);
 
   if (isFetching) {
     return (
