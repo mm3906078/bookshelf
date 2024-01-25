@@ -1,7 +1,6 @@
-import { Box, Spinner, Text } from "@chakra-ui/react";
+import { Box, Spinner } from "@chakra-ui/react";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import React from "react";
 import { User } from "../../models/models";
 import UsersTable from "./UsersTable";
 
