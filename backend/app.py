@@ -355,14 +355,23 @@ def search_books():
             list(args.values()))
         books = cursor.fetchall()
         db_disconnect(cursor, connection)
-        return books, 200
     else:
         # Get all books from database
         cursor.execute("SELECT * FROM books")
         books = cursor.fetchall()
         db_disconnect(cursor, connection)
-        return books, 200
 
+    result = []
+    for book in books:
+        result.append({
+            "book_id": book[0],
+            "title": book[1],
+            "author": book[2],
+            "year": book[3],
+            "genre": book[4],
+            "price": book[5]
+        })
+    return result, 200
 
 @swag_from("docs/books/list.yml")
 @app.route('/books/list', methods=['GET'])
@@ -381,7 +390,8 @@ def list_books():
             "title": book[1],
             "author": book[2],
             "year": book[3],
-            "genre": book[4]
+            "genre": book[4],
+            "price": book[5]
         })
     return result, 200
 
