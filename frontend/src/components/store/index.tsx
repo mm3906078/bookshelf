@@ -12,6 +12,7 @@ import { useState } from "react";
 import { Book } from "../../models/models";
 import AddBookModal from "./books/AddBookModal";
 import BooksTable from "./books/BooksTable";
+import SearchBookModal from "./books/SearchBookModal";
 
 const Store = () => {
   const role = localStorage.getItem("role");
@@ -19,6 +20,11 @@ const Store = () => {
     isOpen: isAddBookModalOpen,
     onOpen: onOpenAddBookModal,
     onClose: onCloseAddBookModal,
+  } = useDisclosure();
+  const {
+    isOpen: isSearchModalOpen,
+    onOpen: onOpenSearchModal,
+    onClose: onCloseSearchModal,
   } = useDisclosure();
   const [bookName, setBookName] = useState("");
   const [authorName, setAuthorName] = useState("");
@@ -88,6 +94,7 @@ const Store = () => {
                 value={bookName}
                 onChange={(e) => {
                   setBookName(e.target.value);
+                  setAuthorName("");
                 }}
                 placeholder="Book name"
               />
@@ -95,10 +102,11 @@ const Store = () => {
                 value={authorName}
                 onChange={(e) => {
                   setAuthorName(e.target.value);
+                  setBookName("");
                 }}
                 placeholder="Author name"
               />
-              <Button padding="10px 40px" onClick={() => {}}>
+              <Button padding="10px 40px" onClick={onOpenSearchModal}>
                 Search
               </Button>
             </Box>
@@ -133,6 +141,14 @@ const Store = () => {
         <AddBookModal
           isOpen={isAddBookModalOpen}
           onClose={onCloseAddBookModal}
+        />
+      )}
+      {isSearchModalOpen && (
+        <SearchBookModal
+          isOpen={isSearchModalOpen}
+          onClose={onCloseSearchModal}
+          authorName={authorName}
+          bookName={bookName}
         />
       )}
     </>
