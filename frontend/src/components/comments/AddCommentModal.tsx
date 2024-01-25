@@ -10,7 +10,7 @@ import {
   Textarea,
   useToast,
 } from "@chakra-ui/react";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { useState } from "react";
 
@@ -24,6 +24,7 @@ const AddCommentModal = (props: Props) => {
   const toast = useToast();
   const token = localStorage.getItem("token");
   const [commentText, setCommentText] = useState("");
+  const queryClient = useQueryClient();
 
   const mutation = useMutation({
     mutationFn: () => {
@@ -42,6 +43,7 @@ const AddCommentModal = (props: Props) => {
         duration: 5000,
         isClosable: true,
       });
+      queryClient.invalidateQueries({ queryKey: ["comments"] });
       props.onClose();
     },
     // onError: (error: any) => {},
