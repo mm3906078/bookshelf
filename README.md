@@ -2,7 +2,7 @@
 
 ## Description
 This is a simple application for selling books. It have a simple interface and a simple database. The application is written in Python.
-
+You can viewing the ER model in [this link](https://drive.google.com/file/d/1Wr6nve1UgjwYochK_eUzYYFoExKgXiTa/view?usp=sharing).
 ## Installation & running
 To install the application you need to download the repository and install the requirements. To do this, run the following commands in the terminal:
 ```
